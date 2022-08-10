@@ -60,6 +60,8 @@ jobs:
         # Defaults to the user or organization that owns the workflow file
         scope: '@prijindal'
     - run: npm ci
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Run migrate Postgres
       run: npm run migrate
       env:
