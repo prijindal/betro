@@ -1,4 +1,4 @@
-import "@betro/lib/dist/setupNodePollyfill";
+import "@prijindal/betro-js-lib/dist/setupNodePollyfill";
 import { runTests } from "./testFunction";
 
 describe("User functions", () => {

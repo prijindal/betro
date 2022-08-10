@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { symEncrypt, symDecrypt, generateExchangePair } from "@betro/lib";
+import { symEncrypt, symDecrypt, generateExchangePair } from "@prijindal/betro-js-lib";
 import times from "lodash/times";
 import AuthController from "./auth";
 

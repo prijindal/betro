@@ -1,4 +1,4 @@
-import { symEncrypt, generateSymKey } from "@betro/lib";
+import { symEncrypt, generateSymKey } from "@prijindal/betro-js-lib";
 
 import AuthController from "./auth";
 import { GroupResponse } from "./types";

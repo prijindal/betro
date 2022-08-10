@@ -5,7 +5,7 @@ import {
   getMasterHash,
   getMasterKey,
   symEncrypt,
-} from "@betro/lib";
+} from "@prijindal/betro-js-lib";
 
 class AuthController {
   private host: string;
