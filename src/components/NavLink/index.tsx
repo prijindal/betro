@@ -10,10 +10,12 @@ const liClassName = (selected: boolean) =>
 const iconClassName = (selected: boolean) =>
     `pl-2 pr-4 ${selected ? "text-purple-700" : "text-gray-500"}`;
 
-const NavLinkWithoutRouting: React.FunctionComponent<{
-    icon?: React.ReactElement;
-    chip?: React.ReactElement;
-}> = (props) => {
+const NavLinkWithoutRouting: React.FunctionComponent<
+    React.PropsWithChildren<{
+        icon?: React.ReactElement;
+        chip?: React.ReactElement;
+    }>
+> = (props) => {
     const { children, icon, chip } = props;
     return (
         <li className={liClassName(false)}>
@@ -24,11 +26,13 @@ const NavLinkWithoutRouting: React.FunctionComponent<{
     );
 };
 
-const NavLinkWithRouting: React.FunctionComponent<{
-    pathname: string;
-    icon?: React.ReactElement;
-    chip?: React.ReactElement;
-}> = (props) => {
+const NavLinkWithRouting: React.FunctionComponent<
+    React.PropsWithChildren<{
+        pathname: string;
+        icon?: React.ReactElement;
+        chip?: React.ReactElement;
+    }>
+> = (props) => {
     const { children, pathname, icon, chip } = props;
     const navigate = useNavigate();
     const location = useLocation();
@@ -58,12 +62,14 @@ const NavLinkWithRouting: React.FunctionComponent<{
     );
 };
 
-const NavLink: React.FunctionComponent<{
-    icon?: React.ReactElement;
-    chip?: React.ReactElement;
-    to: string;
-    includeRouting: boolean;
-}> = (props) => {
+const NavLink: React.FunctionComponent<
+    React.PropsWithChildren<{
+        icon?: React.ReactElement;
+        chip?: React.ReactElement;
+        to: string;
+        includeRouting: boolean;
+    }>
+> = (props) => {
     const { children, to, includeRouting, icon, chip } = props;
     if (includeRouting) {
         return <NavLinkWithRouting chip={chip} icon={icon} children={children} pathname={to} />;

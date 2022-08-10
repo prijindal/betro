@@ -20,10 +20,12 @@ export const UserListItemHeader: React.FunctionComponent<{
     );
 };
 
-const UserListItem: React.FunctionComponent<{
-    user: UserListItemUserProps;
-    routing?: boolean;
-}> = (props) => {
+const UserListItem: React.FunctionComponent<
+    React.PropsWithChildren<{
+        user: UserListItemUserProps;
+        routing?: boolean;
+    }>
+> = (props) => {
     const { user, routing, children } = props;
     const itemText = <UserListItemHeader user={user} />;
     return (

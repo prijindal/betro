@@ -18,7 +18,7 @@ import { getCount, getProfile } from "../../store/app/selectors";
 import { CountState } from "../../store/app/types";
 import Divider from "../../ui/Divider";
 
-const Badge: React.FunctionComponent = ({ children }) => {
+const Badge: React.FunctionComponent<React.PropsWithChildren> = ({ children }) => {
     return (
         <span className="relative inline-flex align-middle flex-shrink">
             {children}

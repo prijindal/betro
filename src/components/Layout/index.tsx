@@ -7,7 +7,9 @@ import Conversations from "../Conversations";
 
 const MobileAppDrawer = React.lazy(() => import("../AppDrawer/MobileAppDrawer"));
 
-const Layout: React.FunctionComponent<{ includeRouting: boolean }> = (props) => {
+const Layout: React.FunctionComponent<React.PropsWithChildren<{ includeRouting: boolean }>> = (
+    props
+) => {
     const { children, includeRouting } = props;
     const [open, setOpen] = useState<boolean>(false);
     const hidden = window.innerWidth < 960;

@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x, 17.x]
+        node-version: [12.x, 14.x, 16.x, 18.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -25,10 +25,10 @@ jobs:
       - run: npm run lint
       - run: npm run tsc
       - name: Build
-        if: startsWith(matrix.node-version, '16')
+        if: startsWith(matrix.node-version, '18')
         run: env BASE_URL="https://betro.easycode.cloud" VITE_API_HOST="https://betro.easycode.cloud" npm run build
       - uses: actions/upload-artifact@v2
-        if: startsWith(matrix.node-version, '16')
+        if: startsWith(matrix.node-version, '18')
         with:
           name: Release
           path: build/

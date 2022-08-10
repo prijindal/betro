@@ -57,7 +57,7 @@ const CheckLoginLoading = () => {
     );
 };
 
-const RequireAuth: React.FC = ({ children }) => {
+const RequireAuth: React.FunctionComponent<React.PropsWithChildren> = ({ children }) => {
     const auth = useSelector(getAuth);
     return auth.isLoaded && auth.isLoggedIn && auth.isVerified ? (
         <div>{children}</div>

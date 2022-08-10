@@ -9,7 +9,7 @@ const MobileAppDrawer: React.FunctionComponent<{
 }> = (props) => {
     const { includeRouting, open, setOpen } = props;
     return (
-        <Drawer onClose={() => setOpen(false)} opened={open} hideCloseButton>
+        <Drawer onClose={() => setOpen(false)} opened={open} withCloseButton={false}>
             <AppDrawer includeRouting={includeRouting} />
         </Drawer>
     );
