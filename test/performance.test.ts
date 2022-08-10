@@ -23,7 +23,7 @@ const rsaFunction = async () => {
     Buffer.from(text, "utf-8")
   );
   const decrypted = await rsaDecrypt(rsaKeys.privateKey, encrypted);
-  if (decrypted.toString("utf-8") !== text) {
+  if (decrypted == null || decrypted.toString("utf-8") !== text) {
     throw Error();
   }
 };
@@ -32,7 +32,7 @@ const symFunction = async () => {
   const symKey = await generateSymKey();
   const encrypted = await symEncrypt(symKey, Buffer.from(text, "utf-8"));
   const decrypted = await symDecrypt(symKey, encrypted);
-  if (decrypted.toString("utf-8") !== text) {
+  if (decrypted == null || decrypted.toString("utf-8") !== text) {
     throw Error();
   }
 };
@@ -76,17 +76,17 @@ describe("Crypto performance functions", () => {
     const rsaPerformance = await testPerformance(100, rsaFunction);
     expect(rsaPerformance).toBeLessThan(400);
     performances.rsa = rsaPerformance;
-  }, 20000);
+  }, 40000);
   it("Sym Key Performance", async () => {
     const symPerformance = await testPerformance(100, symFunction);
     expect(symPerformance).toBeLessThan(400);
     performances.sym = symPerformance;
-  }, 20000);
+  }, 40000);
   it("Exchange Performance", async () => {
     const exchangePerformance = await testPerformance(100, exchangeFunction);
     expect(exchangePerformance).toBeLessThan(400);
     performances.exchange = exchangePerformance;
-  }, 20000);
+  }, 40000);
   afterAll(() => {
     console.log(`RSA Performance: ${performances.rsa}`);
     console.log(`Sym Key Performance: ${performances.sym}`);
