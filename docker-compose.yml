@@ -13,8 +13,8 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: gitea
-      POSTGRES_DB: gitea
-      POSTGRES_PASSWORD: gitea
+      POSTGRES_USER: betro
+      POSTGRES_DB: betro
+      POSTGRES_PASSWORD: betro
     volumes:
       - postgres:/var/lib/postgresql/data
