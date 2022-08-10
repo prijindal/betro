@@ -7,7 +7,7 @@ import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfil
 export default defineConfig({
     plugins: [react()],
     optimizeDeps: {
-        exclude: ["@betro/lib", "@betro/client"],
+        // exclude: ["@prijindal/betro-js-lib", "@prijindal/betro-js-client"],
         esbuildOptions: {
             // Node.js global to browser globalThis
             define: {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { UserSettingResponse, UserSettingsType } from "@betro/client";
+import { UserSettingResponse, UserSettingsType } from "@prijindal/betro-js-client";
 import { wrapLayout } from "../../components/Layout";
 import { useFetchUserSettings, useFetchCountHook } from "../../hooks";
 import BetroApiObject from "../../api/context";

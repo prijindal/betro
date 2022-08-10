@@ -1,5 +1,5 @@
-import { MessageResponse, PaginatedResponse } from "@betro/client";
-import { ConversationResponseBackend } from "@betro/client/dist/UserResponses";
+import { MessageResponse, PaginatedResponse } from "@prijindal/betro-js-client";
+import { ConversationResponseBackend } from "@prijindal/betro-js-client/dist/UserResponses";
 
 export type Locale = "en_US" | "de_DE";
 

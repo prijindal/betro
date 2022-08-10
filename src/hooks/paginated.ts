@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { PaginatedResponse } from "@betro/client";
+import { PaginatedResponse } from "@prijindal/betro-js-client";
 
 export function createPaginatedHook<T>(
     fetchApi: (after?: string) => Promise<PaginatedResponse<T> | null>

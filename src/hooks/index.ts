@@ -27,13 +27,13 @@ import {
     NotificationResponse,
     MessageResponse,
     PaginatedResponse,
-} from "@betro/client";
+} from "@prijindal/betro-js-client";
 import throttle from "lodash/throttle";
-import { bufferToImageUrl } from "@betro/client";
+import { bufferToImageUrl } from "@prijindal/betro-js-client";
 import { UserListItemUserProps } from "../components/UserListItem/types";
 import { createPaginatedHook } from "./paginated";
 import BetroApiObject from "../api/context";
-import { ConversationResponseBackend } from "@betro/client/dist/UserResponses";
+import { ConversationResponseBackend } from "@prijindal/betro-js-client/dist/UserResponses";
 
 export function useFetchGroupsHook() {
     const groupData = useSelector(getGroup);
