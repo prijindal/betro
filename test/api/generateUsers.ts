@@ -1,6 +1,6 @@
 import { includes } from "lodash";
 import casual from "casual";
-import BetroApi, { GroupResponse } from "@betro/client";
+import BetroApi, { GroupResponse } from "@prijindal/betro-js-client";
 
 export interface GeneratedUser {
   credentials: {
