@@ -5,9 +5,6 @@ else {
     if (typeof window === "undefined") {
         global.window = {};
     }
-    window.crypto = {
-        subtle: webcrypto.subtle,
-        getRandomValues: webcrypto.getRandomValues,
-    };
+    window.crypto = webcrypto;
 }
 //# sourceMappingURL=setupNodePollyfill.js.map
