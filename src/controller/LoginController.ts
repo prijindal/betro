@@ -30,10 +30,10 @@ export class LoginController {
     device_display_name,
     user_agent,
   }) => {
-    const queryResult = await this.userRepository.findOne(
-      { email },
-      { select: ["id", "master_hash", "sym_key_id"] }
-    );
+    const queryResult = await this.userRepository.findOne({
+      where: { email },
+      select: ["id", "master_hash", "sym_key_id"],
+    });
     if (
       queryResult == null ||
       !verifyServerHash(master_hash, queryResult.master_hash)

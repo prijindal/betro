@@ -26,10 +26,10 @@ export class ProfileController {
   GetProfilePictureHandler: AppHandlerFunction<{ user_id: string }, string> =
     async (req) => {
       const user_id = req.user_id;
-      const profile = await this.userProfileRepository.findOne(
-        { user_id },
-        { select: ["id", "user_id", "first_name", "last_name"] }
-      );
+      const profile = await this.userProfileRepository.findOne({
+        where: { user_id },
+        select: ["id", "user_id", "first_name", "last_name"],
+      });
       if (profile == null) {
         return {
           error: {
@@ -52,13 +52,11 @@ export class ProfileController {
     UserProfileResponse
   > = async (req) => {
     const user_id = req.user_id;
-    const user = await this.userRepository.findOne({ id: user_id });
-    const profile = await this.userProfileRepository.findOne(
-      { user_id },
-      {
-        select: ["id", "user_id", "first_name", "last_name", "profile_picture"],
-      }
-    );
+    const user = await this.userRepository.findOne({ where: { id: user_id } });
+    const profile = await this.userProfileRepository.findOne({
+      where: { user_id },
+      select: ["id", "user_id", "first_name", "last_name", "profile_picture"],
+    });
     if (profile == null) {
       return {
         error: {
@@ -92,11 +90,11 @@ export class ProfileController {
     UserProfileResponse
   > = async (req) => {
     const user_id = req.user_id;
-    const user = await this.userRepository.findOne({ id: user_id });
-    const profile = await this.userProfileRepository.findOne(
-      { user_id },
-      { select: ["id", "user_id", "first_name", "last_name"] }
-    );
+    const user = await this.userRepository.findOne({ where: { id: user_id } });
+    const profile = await this.userProfileRepository.findOne({
+      where: { user_id },
+      select: ["id", "user_id", "first_name", "last_name"],
+    });
     if (profile == null) {
       const updatedProfile = await this.userProfileRepository.save(
         this.userProfileRepository.create({
@@ -138,11 +136,11 @@ export class ProfileController {
     UserProfileResponse
   > = async (req) => {
     const user_id = req.user_id;
-    const user = await this.userRepository.findOne({ id: user_id });
-    const profile = await this.userProfileRepository.findOne(
-      { user_id },
-      { select: ["id", "user_id", "first_name", "last_name"] }
-    );
+    const user = await this.userRepository.findOne({ where: { id: user_id } });
+    const profile = await this.userProfileRepository.findOne({
+      where: { user_id },
+      select: ["id", "user_id", "first_name", "last_name"],
+    });
     if (profile == null) {
       return {
         error: {

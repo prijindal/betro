@@ -18,18 +18,18 @@ export class RegisterController {
   ) {}
 
   isUsernameAvailable = async (username: string) => {
-    const queryResult = await this.userRepository.findOne(
-      { username },
-      { select: ["id"] }
-    );
+    const queryResult = await this.userRepository.findOne({
+      where: { username },
+      select: ["id"],
+    });
     return queryResult == null;
   };
 
   isEmailAvailable = async (email: string) => {
-    const queryResult = await this.userRepository.findOne(
-      { email },
-      { select: ["id"] }
-    );
+    const queryResult = await this.userRepository.findOne({
+      where: { email },
+      select: ["id"],
+    });
     return queryResult == null;
   };
 

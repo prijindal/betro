@@ -53,7 +53,7 @@ export class MessageController {
       user_key_id = conversation.sender_key_id;
       own_key_id = conversation.receiver_key_id;
     }
-    const user = await this.userRepository.findOne({ id: user_id });
+    const user = await this.userRepository.findOne({ where: { id: user_id } });
     const userProfileWithGrants =
       await this.profileGrantService.fetchProfilesWithGrants(own_id, [user_id]);
     const userProfileWithGrant = userProfileWithGrants.find(
@@ -207,10 +207,10 @@ export class MessageController {
       receiver_key_id = profileWithGrants[0].user_key_id;
     }
     const senderUserId = await this.userEcdhKeyRepository.findOne({
-      id: sender_key_id,
+      where: { id: sender_key_id },
     });
     const receiverUserId = await this.userEcdhKeyRepository.findOne({
-      id: receiver_key_id,
+      where: { id: receiver_key_id },
     });
     if (
       senderUserId == null ||
@@ -246,7 +246,9 @@ export class MessageController {
         response: null,
       };
     }
-    const user = await this.userRepository.findOne({ id: req.receiver_id });
+    const user = await this.userRepository.findOne({
+      where: { id: req.receiver_id },
+    });
     let response: ConversationResponse = {
       id: conversations[0].id,
       user_id: conversations[0].receiver_id,

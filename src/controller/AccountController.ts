@@ -66,7 +66,9 @@ export class AccountController {
   whoAmiHandler: AppHandlerFunction<{ user_id: string }, WhoAmiResponse> =
     async (req) => {
       const user_id = req.user_id;
-      const user = await this.userRepository.findOne({ id: user_id });
+      const user = await this.userRepository.findOne({
+        where: { id: user_id },
+      });
       if (user == null) {
         return {
           response: null,
@@ -82,10 +84,10 @@ export class AccountController {
           email: user.email,
           username: user.username,
         };
-        const profile = await this.userProfileRepository.findOne(
-          { user_id: user_id },
-          { select: ["id", "user_id", "first_name", "last_name"] }
-        );
+        const profile = await this.userProfileRepository.findOne({
+          where: { user_id: user_id },
+          select: ["id", "user_id", "first_name", "last_name"],
+        });
         if (profile != null) {
           response.first_name = profile.first_name;
           response.last_name = profile.last_name;
@@ -113,22 +115,19 @@ export class AccountController {
       if (include_field == "followers") {
         promises.push(
           this.groupFollowApprovalRepository.count({
-            followee_id: user_id,
-            is_approved: true,
+            where: { followee_id: user_id, is_approved: true },
           })
         );
       } else if (include_field == "approvals") {
         promises.push(
           this.groupFollowApprovalRepository.count({
-            followee_id: user_id,
-            is_approved: false,
+            where: { followee_id: user_id, is_approved: false },
           })
         );
       } else if (include_field == "notifications") {
         promises.push(
           this.userNotificationRepository.count({
-            user_id,
-            read: false,
+            where: { user_id, read: false },
           })
         );
       } else if (include_field == "conversations") {
@@ -143,25 +142,25 @@ export class AccountController {
       } else if (include_field == "followees") {
         promises.push(
           this.groupFollowApprovalRepository.count({
-            user_id,
+            where: { user_id },
           })
         );
       } else if (include_field == "posts") {
         promises.push(
           this.postRepository.count({
-            user_id,
+            where: { user_id },
           })
         );
       } else if (include_field == "settings") {
         promises.push(
           this.userSettingsRepository.count({
-            user_id,
+            where: { user_id },
           })
         );
       } else if (include_field == "groups") {
         promises.push(
           this.groupPolicyRepository.count({
-            user_id,
+            where: { user_id },
           })
         );
       }

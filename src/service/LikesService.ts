@@ -26,7 +26,7 @@ export class LikesService {
       likes[index] = parseInt(likeStr, 10);
       if (isNaN(likes[index])) {
         const count = await this.postLikeRepository.count({
-          post_id: post_ids[index],
+          where: { post_id: post_ids[index] },
         });
         likes[index] = count;
         redis.set(`${post_ids[index]}_likes`, count);
@@ -48,7 +48,7 @@ export class LikesService {
     const count = parseInt(likeString, 10);
     if (isNaN(count)) {
       const count = await this.postLikeRepository.count({
-        post_id: post_id,
+        where: { post_id: post_id },
       });
       redis.set(`${post_id}_likes`, count);
       return count;

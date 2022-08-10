@@ -38,17 +38,17 @@ export class PostService {
   };
 
   createPostRedisTrigger = async (post_id: string): Promise<void> => {
-    const post = await this.postRepository.findOne(
-      { id: post_id },
-      { select: ["id", "user_id", "created_at"] }
-    );
+    const post = await this.postRepository.findOne({
+      where: { id: post_id },
+      select: ["id", "user_id", "created_at"],
+    });
     const followers = await this.groupFollowApprovalRepository.find({
-      followee_id: post.user_id,
-      is_approved: true,
+      where: { followee_id: post.user_id, is_approved: true },
     });
     followers.forEach((follower) => {
       redis.zaddBuffer(
         `${follower.user_id}-feed`,
+        "INCR",
         post.created_at.getTime(),
         Buffer.from(post.id, "utf-8")
       );

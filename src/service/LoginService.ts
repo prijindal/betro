@@ -43,8 +43,10 @@ export class LoginService {
     access_token: string
   ): Promise<boolean> => {
     const queryResult = await this.accessTokenRepository.findOne({
-      id: access_token_id,
-      user_id,
+      where: {
+        id: access_token_id,
+        user_id,
+      },
     });
     if (queryResult == null) {
       return false;
@@ -73,8 +75,8 @@ export class LoginService {
     if (!isVerified) {
       return { user_id: null, access_token_id: null };
     }
-    redis.set(redisKeyUserId, user_id, "ex", 600);
-    redis.set(redisKeyTokenId, id, "ex", 600);
+    redis.setex(redisKeyUserId, 600, user_id);
+    redis.setex(redisKeyTokenId, 600, id);
     return { user_id, access_token_id: id };
   };
 }

@@ -115,8 +115,7 @@ export class ProfileGrantService {
       user_key_id,
     } = grant;
     const existingProfileGrant = await this.profileGrantRepository.findOne({
-      user_id,
-      grantee_id,
+      where: { user_id, grantee_id },
     });
     if (existingProfileGrant != null) {
       return existingProfileGrant;

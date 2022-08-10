@@ -28,7 +28,7 @@ export class UserController {
   > = async (req) => {
     const own_id = req.user_id;
     const username = req.username;
-    const user = await this.userRepository.findOne({ username });
+    const user = await this.userRepository.findOne({ where: { username } });
     if (user == null) {
       return {
         error: {
@@ -39,10 +39,10 @@ export class UserController {
         response: null,
       };
     } else {
-      const isFollowing = await this.groupFollowApprovalRepository.findOne(
-        { user_id: own_id, followee_id: user.id },
-        { select: ["id", "is_approved"] }
-      );
+      const isFollowing = await this.groupFollowApprovalRepository.findOne({
+        where: { user_id: own_id, followee_id: user.id },
+        select: ["id", "is_approved"],
+      });
       const userProfileWithGrants =
         await this.profileGrantService.fetchProfilesWithGrants(own_id, [
           user.id,

@@ -31,7 +31,9 @@ export class GroupController {
     Array<GroupResponse>
   > = async (req) => {
     const user_id = req.user_id;
-    const groups = await this.groupPolicyRepository.find({ user_id });
+    const groups = await this.groupPolicyRepository.find({
+      where: { user_id },
+    });
     const sym_keys = await this.keyService.getSymKeys(
       groups.map((a) => a.key_id)
     );
@@ -55,7 +57,9 @@ export class GroupController {
     GroupResponse
   > = async (req) => {
     const user_id = req.user_id;
-    const groupsCount = await this.groupPolicyRepository.count({ user_id });
+    const groupsCount = await this.groupPolicyRepository.count({
+      where: { user_id },
+    });
     if (groupsCount >= 20) {
       return {
         error: {
@@ -103,8 +107,7 @@ export class GroupController {
   > = async (req) => {
     const user_id = req.user_id;
     const group = await this.groupPolicyRepository.findOne({
-      user_id,
-      id: req.group_id,
+      where: { user_id, id: req.group_id },
     });
     if (group == null) {
       return {

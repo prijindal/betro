@@ -159,6 +159,7 @@ export class FeedService {
     posts.forEach((post) => {
       redis.zaddBuffer(
         redis_key,
+        "INCR",
         post.created_at.getTime(),
         Buffer.from(post.id, "utf-8")
       );

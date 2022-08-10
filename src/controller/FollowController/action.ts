@@ -56,7 +56,9 @@ export class FollowActionController {
   > = async (req) => {
     const user_id = req.user_id;
     const followee_id = req.followee_id;
-    const followeeUser = await this.userRepository.findOne({ id: followee_id });
+    const followeeUser = await this.userRepository.findOne({
+      where: { id: followee_id },
+    });
     if (followeeUser == null) {
       return {
         error: { status: 404, message: "User not found", data: null },
@@ -64,8 +66,7 @@ export class FollowActionController {
       };
     } else {
       const isFollowing = await this.groupFollowApprovalRepository.findOne({
-        user_id,
-        followee_id: followeeUser.id,
+        where: { user_id, followee_id: followeeUser.id },
       });
       if (isFollowing != null) {
         return {
@@ -88,7 +89,9 @@ export class FollowActionController {
         followResponse = await this.groupFollowApprovalRepository.save(
           followResponse
         );
-        const user = await this.userRepository.findOne({ id: user_id });
+        const user = await this.userRepository.findOne({
+          where: { id: user_id },
+        });
         if (user != null) {
           await this.notificationController.sendUserNotification(
             followeeUser.id,
@@ -136,15 +139,10 @@ export class FollowActionController {
     const user_id = req.user_id;
     const follow_id = req.follow_id;
     const group_id = req.group_id;
-    const approval = await this.groupFollowApprovalRepository.findOne(
-      {
-        followee_id: user_id,
-        id: follow_id,
-      },
-      {
-        select: ["id", "is_approved", "user_id"],
-      }
-    );
+    const approval = await this.groupFollowApprovalRepository.findOne({
+      where: { followee_id: user_id, id: follow_id },
+      select: ["id", "is_approved", "user_id"],
+    });
     if (approval == null || approval.is_approved) {
       return {
         error: {
@@ -158,8 +156,7 @@ export class FollowActionController {
       };
     } else {
       const group = await this.groupPolicyRepository.find({
-        user_id,
-        id: group_id,
+        where: { user_id, id: group_id },
       });
       if (group == null) {
         return {
@@ -183,7 +180,9 @@ export class FollowActionController {
             followee_key_id: req.own_key_id,
           }
         );
-        const user = await this.userRepository.findOne({ id: user_id });
+        const user = await this.userRepository.findOne({
+          where: { id: user_id },
+        });
         if (user != null) {
           this.feedService.createUserFeed(user.id);
           await this.notificationController.sendUserNotification(

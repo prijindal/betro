@@ -23,7 +23,9 @@ export class SettingsController {
     Array<UserSettingResponse>
   > = async (req) => {
     const user_id = req.user_id;
-    const settings = await this.userSettingsRepository.find({ user_id });
+    const settings = await this.userSettingsRepository.find({
+      where: { user_id },
+    });
     return {
       response: settings,
       error: null,
@@ -38,8 +40,7 @@ export class SettingsController {
     const type = req.type;
     const enabled = req.enabled;
     const queryResult = await this.userSettingsRepository.findOne({
-      user_id,
-      type,
+      where: { user_id, type },
     });
     let queryResponse: UserSettings;
     if (queryResult == null) {

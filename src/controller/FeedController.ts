@@ -112,7 +112,9 @@ export class FeedController {
         req.limit,
         req.after
       );
-    const groups = await this.groupPolicyRepository.find({ user_id: own_id });
+    const groups = await this.groupPolicyRepository.find({
+      where: { user_id: own_id },
+    });
     const keys = await this.keyService.getSymKeys(groups.map((a) => a.key_id));
     const post_ids = data.map((a) => a.id);
     const likes =
@@ -168,7 +170,7 @@ export class FeedController {
   > = async (req) => {
     const own_id = req.user_id;
     const username = req.username;
-    const user = await this.userRepository.findOne({ username });
+    const user = await this.userRepository.findOne({ where: { username } });
     if (user == null) {
       return {
         error: {
@@ -179,10 +181,10 @@ export class FeedController {
         response: null,
       };
     } else {
-      const isFollowing = await this.groupFollowApprovalRepository.findOne(
-        { user_id: own_id, followee_id: user.id },
-        { select: ["id", "is_approved"] }
-      );
+      const isFollowing = await this.groupFollowApprovalRepository.findOne({
+        where: { user_id: own_id, followee_id: user.id },
+        select: ["id", "is_approved"],
+      });
       if ((isFollowing && isFollowing.is_approved) || own_id == user.id) {
         const queryBuilder = this.postRepository
           .createQueryBuilder()

@@ -36,10 +36,10 @@ export class NotificationController {
     content: string,
     payload: Record<string, unknown>
   ) => {
-    const notificationEnabled = await this.userSettingsRepository.findOne(
-      { user_id, type: action as unknown as UserSettingsType },
-      { select: ["enabled"] }
-    );
+    const notificationEnabled = await this.userSettingsRepository.findOne({
+      where: { user_id, type: action as unknown as UserSettingsType },
+      select: ["enabled"],
+    });
     if (notificationEnabled) {
       await this.userNotificationRepository.save(
         this.userNotificationRepository.create({
@@ -58,7 +58,7 @@ export class NotificationController {
   > = async (req) => {
     const user_id = req.user_id;
     const notifications = await this.userNotificationRepository.find({
-      user_id,
+      where: { user_id },
     });
     return {
       response: notifications,

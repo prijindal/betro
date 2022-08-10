@@ -45,7 +45,9 @@ export class PostController {
     const media_content = req.media_content;
     const media_encoding = req.media_encoding;
     const text_content = req.text_content;
-    const group = await this.groupPolicyRepository.findOne({ id: group_id });
+    const group = await this.groupPolicyRepository.findOne({
+      where: { id: group_id },
+    });
     if (group == null) {
       return {
         error: {
@@ -79,7 +81,7 @@ export class PostController {
     GetPostResponse
   > = async (req) => {
     const user_id = req.user_id;
-    const post = await this.postRepository.findOne(req.id);
+    const post = await this.postRepository.findOne({ where: { id: req.id } });
     const { posts, users, keys } = await this.feedService.postProcessPosts(
       user_id,
       [post]
@@ -114,7 +116,7 @@ export class PostController {
   ) => {
     return async (req) => {
       const user_id = req.user_id;
-      const post = await this.postRepository.findOne(req.id);
+      const post = await this.postRepository.findOne({ where: { id: req.id } });
       if (post == null) {
         return {
           error: { status: 404, message: "Post not found", data: null },
@@ -122,8 +124,7 @@ export class PostController {
         };
       }
       const isLiked = await this.postLikeRepository.findOne({
-        post_id: req.id,
-        user_id,
+        where: { post_id: req.id, user_id },
       });
       if (isLiked == null && likeState === true) {
         const [postLike, post_likes] = await Promise.all([

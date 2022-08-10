@@ -29,7 +29,7 @@ export class KeyController {
     GetKeysResponse
   > = async (req) => {
     const user_id = req.user_id;
-    const users = await this.userRepository.find({ id: user_id });
+    const users = await this.userRepository.find({ where: { id: user_id } });
     if (users.length == 0) {
       return {
         error: {
@@ -41,7 +41,7 @@ export class KeyController {
       };
     } else {
       const { sym_key } = await this.userSymKeyRepository.findOne({
-        id: users[0].sym_key_id,
+        where: { id: users[0].sym_key_id },
       });
       const response: GetKeysResponse = {
         sym_key: sym_key,
@@ -51,12 +51,10 @@ export class KeyController {
         const [ecdh_claimed_keys, ecdh_unclaimed_keys] =
           await await Promise.all([
             this.userEcdhKeyRepository.count({
-              user_id: user_id,
-              claimed: true,
+              where: { user_id: user_id, claimed: true },
             }),
             this.userEcdhKeyRepository.count({
-              user_id: user_id,
-              claimed: false,
+              where: { user_id: user_id, claimed: false },
             }),
           ]);
         response.ecdh_claimed_keys = ecdh_claimed_keys;
@@ -74,10 +72,10 @@ export class KeyController {
     { id: string; public_key: string }
   > = async (req) => {
     const user_id = req.id;
-    const ecdhKey = await this.userEcdhKeyRepository.findOne(
-      { user_id, claimed: false },
-      { select: ["id", "public_key"] }
-    );
+    const ecdhKey = await this.userEcdhKeyRepository.findOne({
+      where: { user_id, claimed: false },
+      select: ["id", "public_key"],
+    });
     return { response: ecdhKey, error: null };
   };
 
@@ -86,8 +84,8 @@ export class KeyController {
     Array<UserEcdhKey>
   > = async (req) => {
     const user_id = req.user_id;
-    const whereClause: { user_id: string; claimed?: boolean } = {
-      user_id: user_id,
+    const whereClause: { where: { user_id: string; claimed?: boolean } } = {
+      where: { user_id: user_id },
     };
     if (req.include_types != null && req.include_types.length > 0) {
       const include_types = req.include_types.split(",") as Array<
@@ -98,9 +96,9 @@ export class KeyController {
         include_types.includes("unclaimed")
       ) {
       } else if (include_types.includes("claimed")) {
-        whereClause.claimed = true;
+        whereClause.where.claimed = true;
       } else if (include_types.includes("unclaimed")) {
-        whereClause.claimed = false;
+        whereClause.where.claimed = false;
       }
     }
     const ecdhKeys = await this.userEcdhKeyRepository.find(whereClause);
@@ -115,7 +113,9 @@ export class KeyController {
     UserEcdhKey
   > = async (req) => {
     const user_id = req.user_id;
-    const count = await this.userEcdhKeyRepository.count({ user_id });
+    const count = await this.userEcdhKeyRepository.count({
+      where: { user_id },
+    });
     if (count >= ECDH_MAX_KEYS) {
       return {
         response: null,
@@ -156,7 +156,9 @@ export class KeyController {
     Array<UserEcdhKey>
   > = async (req) => {
     const user_id = req.user_id;
-    const count = await this.userEcdhKeyRepository.count({ user_id });
+    const count = await this.userEcdhKeyRepository.count({
+      where: { user_id },
+    });
     if (count >= ECDH_MAX_KEYS) {
       return {
         response: null,
