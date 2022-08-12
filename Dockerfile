@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY dist/ ./
 
-CMD [ "/app/dist/linux-x64/server" ]
+CMD [ "/app/linux-x64/server" ]
