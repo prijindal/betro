@@ -39,7 +39,7 @@ jobs:
         if: startsWith(matrix.node-version, '18')
         with:
           name: Release
-          path: build/
+          path: dist/
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
