@@ -28,7 +28,7 @@ export class ProfileController {
       const user_id = req.user_id;
       const profile = await this.userProfileRepository.findOne({
         where: { user_id },
-        select: ["id", "user_id", "first_name", "last_name"],
+        select: ["id", "user_id", "first_name", "last_name", "profile_picture"],
       });
       if (profile == null) {
         return {
