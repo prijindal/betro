@@ -1,0 +1,101 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      redis:
+        # Docker Hub image
+        image: redis
+        # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps port 6379 on service container to the host
+          - 6379:6379
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: "https://npm.pkg.github.com"
+          # Defaults to the user or organization that owns the workflow file
+          scope: "@prijindal"
+      - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run migrate Postgres
+        run: npm run migrate
+        env:
+          POSTGRES_URI: postgres://postgres:postgres@localhost:5432/postgres
+      - name: Nodejs Testing
+        run: npm run test
+        env:
+          POSTGRES_URI: postgres://postgres:postgres@localhost:5432/postgres
+          REDIS_URI: redis://localhost:6379
+      - run: npm run build
+      - uses: codecov/codecov-action@v1
+        with:
+          env_vars: NODE_VERSION
+        env:
+          NODE_VERSION: ${{ matrix.node-version }}
+      - name: Build pkg
+        if: startsWith(matrix.node-version, '18')
+        run: npm install -g pkg && npm run pkg:server && npm run pkg:migrate
+      - name: Set up QEMU
+        if: startsWith(matrix.node-version, '18')
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        if: startsWith(matrix.node-version, '18')
+        uses: docker/setup-buildx-action@v2
+      - name: Login to Github Packages
+        if: startsWith(matrix.node-version, '18')
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push
+        if: startsWith(matrix.node-version, '18')
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository }}/betro-server:${{ github.ref_name }}
