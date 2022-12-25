@@ -15,8 +15,7 @@
     "test": "jest --coverage",
     "example:generate": "ts-node test/generateExample.ts",
     "watch-test": "npm run test -- --watchAll",
-    "watch-ts": "tsc -w",
-    "prepare": "husky install"
+    "watch-ts": "tsc -w"
   },
   "repository": {
     "type": "git",
