@@ -1,0 +1,9 @@
+@import "../../variables.scss";
+
+.drawer {
+    min-width: $drawer-width;
+}
+
+.reverseIcon {
+    transform: scaleX(-1);
+}
