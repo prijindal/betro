@@ -188,6 +188,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./services/api
           push: true
           tags: ghcr.io/${{ github.repository }}/api:${{ github.ref_name }}
