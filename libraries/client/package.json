@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/prijindal/betro-js-client#readme",
   "dependencies": {
-    "@prijindal/betro-js-lib": "../encryption",
+    "@prijindal/betro-js-lib": "file:../encryption",
     "axios": "^0.27.2",
     "casual": "^1.6.2",
     "lodash": "^4.17.21"
