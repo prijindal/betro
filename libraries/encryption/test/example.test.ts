@@ -32,10 +32,14 @@ describe("Example generated file", () => {
       encryptionKey,
       json.sym.encryptedSymKey
     );
+    expect(decryptedSymKey).not.toBeNull();
+    if (!decryptedSymKey) throw Error();
     const decryptedMessage = await symDecrypt(
       decryptedSymKey.toString("base64"),
       json.sym.encryptedSymMessage
     );
+    expect(decryptedMessage).not.toBeNull();
+    if (!decryptedMessage) throw Error();
     expect(decryptedMessage.toString("utf-8")).toEqual(originalText);
   });
 
@@ -46,10 +50,14 @@ describe("Example generated file", () => {
       encryptionKey,
       json.rsa.encryptedPrivateKey
     );
+    expect(decryptedRsaPrivateKey).not.toBeNull();
+    if (!decryptedRsaPrivateKey) throw Error();
     const decryptedMessage = await rsaDecrypt(
       decryptedRsaPrivateKey.toString("base64"),
       json.rsa.encryptedRsaMessage
     );
+    expect(decryptedMessage).not.toBeNull();
+    if (!decryptedMessage) throw Error();
     expect(decryptedMessage.toString("utf-8")).toEqual(originalText);
   });
 
@@ -60,6 +68,8 @@ describe("Example generated file", () => {
       encryptionKey,
       json.ecdh.keys[0].encryptedPrivateKey
     );
+    expect(decryptedEcdhPrivateKey1).not.toBeNull();
+    if (!decryptedEcdhPrivateKey1) throw Error();
     const derivedKey1 = await deriveExchangeSymKey(
       json.ecdh.keys[1].publicKey,
       decryptedEcdhPrivateKey1.toString("base64")
@@ -68,6 +78,8 @@ describe("Example generated file", () => {
       encryptionKey,
       json.ecdh.keys[1].encryptedPrivateKey
     );
+    expect(decryptedEcdhPrivateKey2).not.toBeNull();
+    if (!decryptedEcdhPrivateKey2) throw Error();
     const derivedKey2 = await deriveExchangeSymKey(
       json.ecdh.keys[0].publicKey,
       decryptedEcdhPrivateKey2.toString("base64")
@@ -76,12 +88,16 @@ describe("Example generated file", () => {
       encryptionKey,
       json.ecdh.ecdhEncryptedSymKey
     );
+    expect(edchDerivedKey).not.toBeNull();
+    if (!edchDerivedKey) throw Error();
     expect(derivedKey1).toEqual(derivedKey2);
     expect(edchDerivedKey.toString("base64")).toEqual(derivedKey1);
     const decryptedEcdhMessage = await symDecrypt(
       derivedKey1,
       json.ecdh.ecdhDerivedKeyMessage
     );
+    expect(decryptedEcdhMessage).not.toBeNull();
+    if (!decryptedEcdhMessage) throw Error();
     expect(decryptedEcdhMessage.toString("utf-8")).toEqual(originalText);
   });
 });

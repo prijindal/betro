@@ -33,6 +33,7 @@ describe("Crypto functions", () => {
 
     const decrypted = await symDecrypt(encryption_key, encryptedData);
     expect(decrypted).not.toBeNull();
+    if (!decrypted) throw Error();
     expect(decrypted.toString()).toEqual(originalText);
   });
 
@@ -42,6 +43,8 @@ describe("Crypto functions", () => {
     const symEncrypted = await symEncrypt(symKey, Buffer.from(originalText));
 
     const symDecrypted = await symDecrypt(symKey, symEncrypted);
+    expect(symDecrypted).not.toBeNull();
+    if (!symDecrypted) throw Error();
     expect(symDecrypted.toString()).toEqual(originalText);
   });
 
@@ -51,6 +54,8 @@ describe("Crypto functions", () => {
     const rsaEncrypted = await rsaEncrypt(publicKey, Buffer.from(originalText));
 
     const rsaDecrypted = await rsaDecrypt(privateKey, rsaEncrypted);
+    expect(rsaDecrypted).not.toBeNull();
+    if (!rsaDecrypted) throw Error();
     expect(rsaDecrypted.toString()).toEqual(originalText);
   });
 

@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../libraries/encryption"
+		},
+		{
+			"path": "../libraries/client"
+		},
+		{
+			"path": "../services/api"
+		},
+		{
+			"path": "../services/ui"
+		}
+	]
+}
