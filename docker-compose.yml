@@ -2,6 +2,10 @@ version: "3"
 
 name: betro
 
+volumes:
+  postgres:
+    driver: local
+
 services:
   redis:
     image: redis:latest
@@ -15,3 +19,34 @@ services:
       POSTGRES_PASSWORD: betro
     volumes:
       - postgres:/var/lib/postgresql/data
+  betro-migration:
+    image: ghcr.io/prijindal/betro/api:main
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_URI=postgres://betro:betro@database:5432/betro
+    command: [ "./linux-x64/migrate/migrate" ]
+  betro-api:
+    image: ghcr.io/prijindal/betro/api:main
+    restart: always
+    ports:
+      - 4000:4000
+    depends_on:
+      - betro-migration
+      - postgres
+      - redis
+    environment:
+      - PORT=4000
+      - POSTGRES_URI=postgres://betro:betro@database:5432/betro
+      - REDIS_URI=redis://redis:6379
+      - SECRET=7c6626f1-2f52-4629-ae09-7d43453f3a01
+      - NODE_ENV=production
+      - LOGGER_LEVEL=info
+      - ENABLE_RATE_LIMIT="false"
+  betro-ui:
+    image: ghcr.io/prijindal/betro/ui:main
+    ports:
+      - 3000:80
+    restart: always
+    depends_on:
+      - betro-api
