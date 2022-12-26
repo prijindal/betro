@@ -150,6 +150,12 @@ jobs:
         working-directory: ./libraries/encryption
       - run: npm run build
         working-directory: ./libraries/encryption
+
+      - run: npm ci
+        working-directory: ./libraries/client
+      - run: npm run build
+        working-directory: ./libraries/client
+
       - run: npm ci
       - name: Run migrate Postgres
         run: npm run migrate
