@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@prijindal/betro-js-client": "file:../libraries/client",
+    "@prijindal/betro-js-client": "file:../../libraries/client",
     "@prijindal/betro-js-lib": "file:../../libraries/encryption",
     "@heroicons/react": "^1.0.6",
     "@mantine/core": "^5.1.1",
