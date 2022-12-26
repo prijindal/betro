@@ -5,30 +5,31 @@ import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfil
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react()],
-    optimizeDeps: {
-        // exclude: ["@prijindal/betro-js-lib", "@prijindal/betro-js-client"],
-        esbuildOptions: {
-            // Node.js global to browser globalThis
-            define: {
-                global: "globalThis",
-            },
-            // Enable esbuild polyfill plugins
-            plugins: [
-                NodeGlobalsPolyfillPlugin({
-                    process: true,
-                    buffer: true,
-                }),
-            ],
-        },
+  plugins: [react()],
+  optimizeDeps: {
+    include: ["@prijindal/betro-js-lib", "@prijindal/betro-js-client"],
+    esbuildOptions: {
+      // Node.js global to browser globalThis
+      // define: {
+      //   global: "globalThis",
+      // },
+      // Enable esbuild polyfill plugins
+      // plugins: [
+      //   NodeGlobalsPolyfillPlugin({
+      //     process: true,
+      //     buffer: true,
+      //   }),
+      // ],
     },
-    build: {
-        rollupOptions: {
-            plugins: [
-                // Enable rollup polyfills plugin
-                // used during production bundling
-                rollupNodePolyFill(),
-            ],
-        },
+  },
+  build: {
+    rollupOptions: {
+      external: ["@prijindal/betro-js-lib", "@prijindal/betro-js-client"],
+      // plugins: [
+      //   // Enable rollup polyfills plugin
+      //   // used during production bundling
+      //   rollupNodePolyFill(),
+      // ],
     },
+  },
 });
