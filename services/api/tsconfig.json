@@ -17,6 +17,12 @@
     "baseUrl": ".",
     "types": []
   },
-  "include": ["src", "node_modules/@types/jest"],
-  "exclude": ["test/models", "dist"]
+  "include": [
+    "src",
+    "node_modules/@types/jest"
+  ],
+  "exclude": [
+    "test/models",
+    "dist"
+  ]
 }

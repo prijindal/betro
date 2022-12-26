@@ -23,7 +23,7 @@ class FeedController {
       post: PostResponse,
       keys: { [key_id: string]: string },
       users: { [user_id: string]: PostUserResponse }
-    ) => Promise<Buffer>
+    ) => Promise<Buffer | null>
   ): Promise<Array<PostResource>> => {
     const posts: Array<PostResource> = [];
     const users: { [user_id: string]: PostResourceUser } = {};
@@ -38,11 +38,15 @@ class FeedController {
     }
     for (const post of feed.posts) {
       const sym_key = await postToSymKey(post, feed.keys, feed.users);
-      const parsedPost = await parsePost(post, sym_key);
-      posts.push({
-        ...parsedPost,
-        user: users[post.user_id],
-      });
+      if (sym_key != null) {
+        const parsedPost = await parsePost(post, sym_key);
+        posts.push({
+          ...parsedPost,
+          user: users[post.user_id],
+        });
+      } else {
+        console.warn("Some error getting sym key for post");
+      }
     }
     return posts;
   };
@@ -76,7 +80,7 @@ class FeedController {
 
   fetchUserPosts = async (
     username: string,
-    after: string | undefined
+    after?: string
   ): Promise<{ data: Array<PostResource>; pageInfo: FeedPageInfo } | null> => {
     const limit = 5;
     if (after == null) {
@@ -102,7 +106,7 @@ class FeedController {
   };
 
   fetchOwnPosts = async (
-    after: string | undefined
+    after?: string
   ): Promise<{ data: Array<PostResource>; pageInfo: FeedPageInfo } | null> => {
     const limit = 29;
     if (after == null) {
@@ -133,7 +137,7 @@ class FeedController {
   };
 
   fetchHomeFeed = async (
-    after: string | undefined
+    after?: string
   ): Promise<{ data: Array<PostResource>; pageInfo: FeedPageInfo } | null> => {
     const limit = 5;
     if (after == null) {

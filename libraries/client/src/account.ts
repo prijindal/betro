@@ -17,7 +17,7 @@ class AccountController {
   }
 
   fetchProfilePicture = async (): Promise<Buffer | null> => {
-    if (!this.auth.isAuthenticated()) return null;
+    if (!this.auth.isAuthenticated() || this.auth.symKey == null) return null;
     try {
       const response = await this.auth.instance.get(
         "/api/account/profile_picture"
@@ -31,7 +31,7 @@ class AccountController {
   };
 
   whoAmi = async (): Promise<WhoAmiResponse | null> => {
-    if (!this.auth.isAuthenticated()) return null;
+    if (!this.auth.isAuthenticated() || this.auth.symKey == null) return null;
     const response = await this.auth.instance.get("/api/account/whoami");
     const data = response.data;
     let first_name: string | undefined;
@@ -138,6 +138,7 @@ class AccountController {
     last_name: string,
     profile_picture: Buffer | null
   ): Promise<UserProfileResponse | null> => {
+    if (this.auth.symKey == null) return null;
     try {
       const encrypted_sym_key = await symEncrypt(
         this.auth.encryptionKey,
@@ -179,6 +180,7 @@ class AccountController {
     last_name?: string,
     profile_picture?: Buffer | null
   ): Promise<UserProfileResponse | null> => {
+    if (this.auth.symKey == null) return null;
     try {
       const request: UserProfilePutRequest = {};
       if (first_name != null) {

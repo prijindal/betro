@@ -11,11 +11,11 @@ class ConversationController {
   constructor(auth: AuthController) {
     this.auth = auth;
   }
-  ws: WebSocket | null;
+  ws?: WebSocket;
 
   fetchConversations = async (
     after: string | undefined
-  ): Promise<PaginatedResponse<ConversationResponseBackend>> => {
+  ): Promise<PaginatedResponse<ConversationResponseBackend> | null> => {
     const limit = 5;
     if (after == null) {
       after = Buffer.from(new Date().toISOString(), "utf-8").toString("base64");
@@ -46,7 +46,7 @@ class ConversationController {
 
   fetchConversation = async (
     id: string
-  ): Promise<ConversationResponseBackend> => {
+  ): Promise<ConversationResponseBackend | null> => {
     try {
       const response =
         await this.auth.instance.get<ConversationResponseBackend>(
@@ -67,7 +67,7 @@ class ConversationController {
   createConversation = async (
     user_id: string,
     user_key_id: string
-  ): Promise<ConversationResponseBackend> => {
+  ): Promise<ConversationResponseBackend | null> => {
     try {
       const ownKeyPair = this.auth.ecdhKeys[Object.keys(this.auth.ecdhKeys)[0]];
       const response = await this.auth.instance.post<
@@ -81,8 +81,9 @@ class ConversationController {
       const data = response.data;
       const userResponse = await parseUserGrant(this.auth.encryptionKey, data);
       return { ...data, ...userResponse };
-    } catch (e) {
-      console.error(e.response.data);
+    } catch (e: any) {
+      console.error(e?.response?.data || e);
+      return null;
     }
   };
 
@@ -125,10 +126,14 @@ class ConversationController {
     const data: Array<MessageResponse> = [];
     for (const row of response.data.data) {
       const message = await symDecrypt(derivedKey, row.message);
-      data.push({
-        ...row,
-        message: message.toString("utf-8"),
-      });
+      if (message != null) {
+        data.push({
+          ...row,
+          message: message.toString("utf-8"),
+        });
+      } else {
+        console.warn("Decryption error");
+      }
     }
     return {
       next: response.data.next,
@@ -153,7 +158,7 @@ class ConversationController {
         conversation.own_private_key
       );
       const decryptedMessage = await symDecrypt(derivedKey, message);
-      return decryptedMessage.toString("utf-8");
+      return decryptedMessage?.toString("utf-8") || null;
     }
     return null;
   };
@@ -170,7 +175,7 @@ class ConversationController {
       });
       this.ws.addEventListener("close", () => {
         console.log("websocket connection closed");
-        this.ws = null;
+        this.ws = undefined;
       });
       this.ws.addEventListener("open", (m) => {
         const payload = { action: "login", token: this.auth.getToken() };

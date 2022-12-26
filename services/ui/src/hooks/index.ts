@@ -434,8 +434,10 @@ export function useOpenConversation(
             user_id,
             user_key_id
         );
-        dispatch(addConversation(conversation));
-        dispatch(openConversation(conversation.id));
+        if (conversation) {
+            dispatch(addConversation(conversation));
+            dispatch(openConversation(conversation.id));
+        }
     }, [user_id, user_key_id, dispatch]);
     return createConversation;
 }
@@ -446,10 +448,12 @@ export function useProcessIncomingMessage() {
     const processMessage = useCallback(
         async (messageResponse: MessageResponse) => {
             const { sender_id, conversation_id, id, message, created_at } = messageResponse;
-            let conversation = conversations.data.find((a) => a.id === conversation_id);
+            let conversation: ConversationResponseBackend | null | undefined = conversations.data.find((a) => a.id === conversation_id);
             if (conversation == null) {
                 conversation = await BetroApiObject.conversation.fetchConversation(conversation_id);
-                dispatch(addConversation(conversation));
+                if (conversation != null) {
+                    dispatch(addConversation(conversation));
+                }
             }
             dispatch(openConversation(conversation_id));
             if (conversation != null) {

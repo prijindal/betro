@@ -125,7 +125,7 @@ class FollowController {
     try {
       const ownKeyPair = this.auth.ecdhKeys[Object.keys(this.auth.ecdhKeys)[0]];
       let encrypted_profile_sym_key = null;
-      if (followee_public_key != null) {
+      if (followee_public_key != null && this.auth.symKey != null) {
         const derivedKey = await deriveExchangeSymKey(
           followee_public_key,
           ownKeyPair.privateKey
@@ -169,7 +169,7 @@ class FollowController {
       private_key
     );
     try {
-      if (decryptedGroupSymKey != null) {
+      if (decryptedGroupSymKey != null && this.auth.symKey != null) {
         const encrypted_group_sym_key = await symEncrypt(
           derivedKey,
           decryptedGroupSymKey

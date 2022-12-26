@@ -13,7 +13,7 @@ class AuthController {
   public encryptionKey = "";
   private token = "";
   public privateKey = "";
-  public symKey: Buffer;
+  public symKey?: Buffer;
   // public ecdhKeys: Array<{ id: string; publicKey: string; privateKey: string }> = [];
   public ecdhKeys: {
     [id: string]: {
@@ -74,7 +74,7 @@ class AuthController {
     this.encryptionKey = "";
     this.token = "";
     this.privateKey = "";
-    this.symKey = null;
+    this.symKey = undefined;
   };
 
   login = async (
