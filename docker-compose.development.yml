@@ -1,3 +1,7 @@
+version: "3"
+
+name: betro-dev
+
 volumes:
   postgres:
     driver: local
@@ -8,8 +12,8 @@ services:
     ports:
       - "6379:6379"
     restart: always
-  postgres:
-    image: postgres:latest
+  database:
+    image: "postgres:latest"
     ports:
       - "5432:5432"
     environment:

@@ -10,9 +10,11 @@ services:
   redis:
     image: redis:latest
     restart: always
+    container_name: betro-redis
   postgres:
     image: postgres:latest
     restart: always
+    container_name: betro-postgres
     environment:
       POSTGRES_USER: betro
       POSTGRES_DB: betro
@@ -21,14 +23,16 @@ services:
       - postgres:/var/lib/postgresql/data
   betro-migration:
     image: ghcr.io/prijindal/betro/api:main
+    container_name: betro-migration
     depends_on:
       - postgres
     environment:
-      - POSTGRES_URI=postgres://betro:betro@database:5432/betro
+      - POSTGRES_URI=postgres://betro:betro@postgres:5432/betro
     command: [ "./linux-x64/migrate/migrate" ]
   betro-api:
     image: ghcr.io/prijindal/betro/api:main
     restart: always
+    container_name: betro-api
     ports:
       - 4000:4000
     depends_on:
@@ -37,7 +41,7 @@ services:
       - redis
     environment:
       - PORT=4000
-      - POSTGRES_URI=postgres://betro:betro@database:5432/betro
+      - POSTGRES_URI=postgres://betro:betro@postgres:5432/betro
       - REDIS_URI=redis://redis:6379
       - SECRET=7c6626f1-2f52-4629-ae09-7d43453f3a01
       - NODE_ENV=production
@@ -45,6 +49,7 @@ services:
       - ENABLE_RATE_LIMIT="false"
   betro-ui:
     image: ghcr.io/prijindal/betro/ui:main
+    container_name: betro-ui
     ports:
       - 3000:80
     restart: always
