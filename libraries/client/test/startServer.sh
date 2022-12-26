@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd ../../services/apu
+cd ../../services/api
 npm start &
