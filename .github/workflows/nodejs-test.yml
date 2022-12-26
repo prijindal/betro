@@ -80,11 +80,9 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
       - run: npm ci
-        with:
-          working-directory: ./libraries/encryption
+        working-directory: ./libraries/encryption
       - run: npm run build
-        with:
-          working-directory: ./libraries/encryption
+        working-directory: ./libraries/encryption
       - run: npm ci
       - run: sh ./test/setup.sh
         env:
