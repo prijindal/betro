@@ -4,14 +4,14 @@ on:
   push:
     branches: [main]
 
-defaults:
-  run:
-    shell: bash
-    working-directory: ./libraries/encryption
-
 jobs:
-  build:
+  encryption:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./libraries/encryption
 
     strategy:
       matrix:
@@ -29,5 +29,70 @@ jobs:
         with:
           env_vars: NODE_VERSION
           flags: libraries-encryption
+        env:
+          NODE_VERSION: ${{ matrix.node-version }}
+
+  client:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./libraries/client
+
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      redis:
+        # Docker Hub image
+        image: redis
+        # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps port 6379 on service container to the host
+          - 6379:6379
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+      - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: sh ./test/setup.sh
+        env:
+          POSTGRES_URI: postgres://postgres:postgres@localhost:5432/postgres
+      - run: sh ./test/startServer.sh
+        env:
+          POSTGRES_URI: postgres://postgres:postgres@localhost:5432/postgres
+      - run: npm run test
+      - run: npm run build
+      - uses: codecov/codecov-action@v1
+        with:
+          env_vars: NODE_VERSION
+          flags: libraries-client
         env:
           NODE_VERSION: ${{ matrix.node-version }}
