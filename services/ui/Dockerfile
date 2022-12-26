@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:stable
 
 # Copy the static website
 # Use the .dockerignore file to control what ends up inside the image!

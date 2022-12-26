@@ -1,4 +1,4 @@
-FROM buildpack-deps:bullseye-scm
+FROM buildpack-deps:stable
 
 WORKDIR /app
 
