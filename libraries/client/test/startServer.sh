@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd /tmp/betro-server
+cd ../../services/apu
 npm start &
