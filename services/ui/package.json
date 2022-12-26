@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@prijindal/betro-js-client": "0.0.3-master.6698f58",
+    "@prijindal/betro-js-client": "../libraries/client",
     "@heroicons/react": "^1.0.6",
     "@mantine/core": "^5.1.1",
     "@mantine/hooks": "^5.1.1",
