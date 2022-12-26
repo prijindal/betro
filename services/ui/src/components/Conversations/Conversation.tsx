@@ -4,7 +4,7 @@ import ArrowRightIcon from "@heroicons/react/solid/ArrowRightIcon";
 import throttle from "lodash/throttle";
 import ChevronDoubleDownIcon from "@heroicons/react/solid/ChevronDoubleDownIcon";
 import ChevronDoubleUpIcon from "@heroicons/react/solid/ChevronDoubleUpIcon";
-import { MessageResponse } from "@prijindal/betro-js-client";
+import { MessageResponse } from "@prijindal/betro-js-client/src";
 import { useFetchMessages, useSendMessage } from "../../hooks";
 import { LoadingSpinnerCenter } from "../../ui/LoadingSpinner";
 import { getConversation, getProfile } from "../../store/app/selectors";
@@ -46,9 +46,8 @@ const Message: React.FunctionComponent<{
     return (
         <div
             onClick={() => setExpanded(!expanded)}
-            className={`p-2 flex items-center ${
-                is_own ? "justify-end flex-row-reverse" : "justify-start flex-row"
-            }`}
+            className={`p-2 flex items-center ${is_own ? "justify-end flex-row-reverse" : "justify-start flex-row"
+                }`}
         >
             {is_own ? <OwnProfilePicture /> : <UserProfilePicture />}
             <div className={`flex flex-col ${is_own ? "items-end" : "items-start"}`}>

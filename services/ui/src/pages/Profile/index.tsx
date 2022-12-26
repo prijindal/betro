@@ -1,9 +1,10 @@
+import { Buffer } from "buffer";
 import React, { useCallback, useEffect, useState } from "react";
 import isEmpty from "lodash/isEmpty";
 import { useSelector } from "react-redux";
 import { wrapLayout } from "../../components/Layout";
 import { getProfile } from "../../store/app/selectors";
-import { imageUrlToBuffer } from "@prijindal/betro-js-client";
+import { imageUrlToBuffer } from "@prijindal/betro-js-client/src";
 import ProfileForm from "./ProfileForm";
 import Button from "../../ui/Button";
 import { LoadingSpinnerCenter } from "../../ui/LoadingSpinner";

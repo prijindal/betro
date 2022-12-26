@@ -1,4 +1,4 @@
-import { CountResponse, MessageResponse } from "@prijindal/betro-js-client";
+import { CountResponse, MessageResponse } from "@prijindal/betro-js-client/src";
 import { ConversationResponseBackend } from "@prijindal/betro-js-client/dist/UserResponses";
 import { Action, Group, Locale, MessagesState } from "./types";
 

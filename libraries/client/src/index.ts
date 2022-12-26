@@ -11,7 +11,7 @@ import ConversationController from "./conversation";
 export * from "./types";
 export * from "./bufferToImage";
 
-class BetroApi {
+export class BetroApi {
   private host: string;
   public auth: AuthController;
   constructor(host: string) {

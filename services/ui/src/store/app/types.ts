@@ -1,4 +1,4 @@
-import { MessageResponse, PaginatedResponse } from "@prijindal/betro-js-client";
+import { MessageResponse, PaginatedResponse } from "@prijindal/betro-js-client/src";
 import { ConversationResponseBackend } from "@prijindal/betro-js-client/dist/UserResponses";
 
 export type Locale = "en_US" | "de_DE";

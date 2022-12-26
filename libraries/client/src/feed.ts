@@ -1,5 +1,5 @@
 import { Buffer } from "buffer";
-import { symDecrypt, deriveExchangeSymKey } from "@prijindal/betro-js-lib";
+import { symDecrypt, deriveExchangeSymKey } from "@prijindal/betro-js-lib/src";
 import AuthController from "./auth";
 import { parsePost, parseUserGrant } from "./profileHelper";
 import {

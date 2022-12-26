@@ -1,3 +1,5 @@
+import { Buffer } from "buffer";
+
 export interface UserListItemUserProps {
     username: string | null;
     first_name?: string | null;

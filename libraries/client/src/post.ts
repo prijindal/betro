@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 import { AxiosResponse } from "axios";
-import { symDecrypt, deriveExchangeSymKey, symEncrypt } from "@prijindal/betro-js-lib";
+import { symDecrypt, deriveExchangeSymKey, symEncrypt } from "@prijindal/betro-js-lib/src";
 import AuthController from "./auth";
 import { parsePost, parseUserGrant } from "./profileHelper";
 import {

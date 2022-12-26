@@ -25,6 +25,11 @@ export default defineConfig({
   build: {
     rollupOptions: {
       // external: ["@prijindal/betro-js-lib", "@prijindal/betro-js-client"],
+      // output: {
+      //   globals: {
+      //     "@prijindal/betro-js-client": "../../libraries/client"
+      //   }
+      // }
       // plugins: [
       // Enable rollup polyfills plugin
       // used during production bundling

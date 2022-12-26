@@ -7,7 +7,7 @@ import { useFetchFollowers, useFetchGroupsHook } from "../../hooks";
 import UserListItem from "../../components/UserListItem";
 import FollowButton from "../../components/FollowButton";
 import Button from "../../ui/Button";
-import { FollowerResponse } from "@prijindal/betro-js-client";
+import { FollowerResponse } from "@prijindal/betro-js-client/src";
 import { LoadingSpinnerCenter } from "../../ui/LoadingSpinner";
 
 const FollowerComponent: React.FunctionComponent<{

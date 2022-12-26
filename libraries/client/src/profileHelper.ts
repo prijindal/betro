@@ -1,4 +1,5 @@
-import { deriveExchangeSymKey, symDecrypt, symDecryptBuffer } from "@prijindal/betro-js-lib";
+import { Buffer } from "buffer";
+import { deriveExchangeSymKey, symDecrypt, symDecryptBuffer } from "@prijindal/betro-js-lib/src";
 import { bufferToImageUrl } from "./bufferToImage";
 import { PostResponse } from "./types";
 import { ProfileGrantRow } from "./UserResponses";

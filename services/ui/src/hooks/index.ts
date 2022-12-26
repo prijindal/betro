@@ -27,9 +27,9 @@ import {
     NotificationResponse,
     MessageResponse,
     PaginatedResponse,
-} from "@prijindal/betro-js-client";
+} from "@prijindal/betro-js-client/src";
 import throttle from "lodash/throttle";
-import { bufferToImageUrl } from "@prijindal/betro-js-client";
+import { bufferToImageUrl } from "@prijindal/betro-js-client/src";
 import { UserListItemUserProps } from "../components/UserListItem/types";
 import { createPaginatedHook } from "./paginated";
 import BetroApiObject from "../api/context";
@@ -147,15 +147,15 @@ export const useFetchUserInfoHook = (
         state == null
             ? null
             : {
-                  is_approved: true,
-                  is_following: true,
-                  public_key: null,
-                  ...state,
-                  profile_picture:
-                      typeof state.profile_picture == "string" ? null : state.profile_picture,
-                  username: state.username || "",
-                  id: "",
-              }
+                is_approved: true,
+                is_following: true,
+                public_key: null,
+                ...state,
+                profile_picture:
+                    typeof state.profile_picture == "string" ? null : state.profile_picture,
+                username: state.username || "",
+                id: "",
+            }
     );
     const fetchPosts = useCallback(
         async (forceRefresh = false) => {
