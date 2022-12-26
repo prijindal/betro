@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import "../src/setupNodePollyfill";
 import {
   getMasterKey,

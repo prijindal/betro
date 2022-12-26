@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import axios from "axios";
 
 export const bufferToImageUrl = (buffer: Buffer): string => {

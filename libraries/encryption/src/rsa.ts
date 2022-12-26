@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import crypto from "./crypto";
 import { HASH_ALGORITHM } from "./constants";
 const RSA_ALGORITHM = "RSA-OAEP";

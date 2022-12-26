@@ -1,7 +1,12 @@
 {
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
   "compilerOptions": {
     "incremental": true,
-    "module": "CommonJS",
+    "module": "ESNext",
     "allowJs": true,
     "declaration": true,
     "esModuleInterop": true,

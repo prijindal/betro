@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import crypto from "./crypto";
 import { hkdfDeriveAndExport } from "./get_key";
 

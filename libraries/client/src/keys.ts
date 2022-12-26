@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import { AxiosResponse } from "axios";
 import { symEncrypt, symDecrypt, generateExchangePair } from "@prijindal/betro-js-lib";
 import times from "lodash/times";

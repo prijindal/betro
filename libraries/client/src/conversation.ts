@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import { AxiosResponse } from "axios";
 import { deriveExchangeSymKey, symDecrypt, symEncrypt } from "@prijindal/betro-js-lib";
 import { PaginatedResponse, MessageResponse } from "./types";

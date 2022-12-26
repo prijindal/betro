@@ -7,7 +7,7 @@ import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfil
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    include: ["@prijindal/betro-js-lib", "@prijindal/betro-js-client"],
+    // include: ["@prijindal/betro-js-lib", "@prijindal/betro-js-client"],
     esbuildOptions: {
       // Node.js global to browser globalThis
       // define: {
@@ -24,11 +24,11 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ["@prijindal/betro-js-lib", "@prijindal/betro-js-client"],
+      // external: ["@prijindal/betro-js-lib", "@prijindal/betro-js-client"],
       // plugins: [
-      //   // Enable rollup polyfills plugin
-      //   // used during production bundling
-      //   rollupNodePolyFill(),
+      // Enable rollup polyfills plugin
+      // used during production bundling
+      // rollupNodePolyFill(),
       // ],
     },
   },

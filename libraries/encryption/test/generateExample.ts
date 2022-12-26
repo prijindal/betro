@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import fs from "fs";
 import "../src/setupNodePollyfill";
 import {

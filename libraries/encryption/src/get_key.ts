@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import crypto from "./crypto";
 
 import { HASH_LENGTH, ITERATIONS, HASH_ALGORITHM } from "./constants";

@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+import { Buffer } from "buffer";
 import { symDecrypt, symDecryptBuffer, symEncrypt } from "@prijindal/betro-js-lib";
 import AuthController from "./auth";
 import {

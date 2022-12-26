@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import axios, { AxiosInstance } from "axios";
 import {
   generateSymKey,
