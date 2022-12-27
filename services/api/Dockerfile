@@ -1,7 +1,7 @@
-FROM buildpack-deps:stable
+FROM node:18
 
 WORKDIR /app
 
 COPY dist/ ./
 
-CMD [ "/app/linux-x64/server" ]
+CMD [ "node" "/app/server.js" ]

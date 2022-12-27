@@ -173,8 +173,6 @@ jobs:
           flags: services-api
         env:
           NODE_VERSION: ${{ matrix.node-version }}
-      - name: Build pkg
-        run: npm install -g pkg && npm run pkg:server && npm run pkg:migrate
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
