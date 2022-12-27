@@ -167,7 +167,7 @@ class ConversationController {
     if (this.ws == null) {
       const hostArr = this.auth.getHost().split("://");
       const host = hostArr[1];
-      const protocol = hostArr[0] == "http" ? "ws" : "wss";
+      const protocol = hostArr[0] == "https" ? "wss" : "ws";
       const s = new WebSocket(`${protocol}://${host}/messages`);
       this.ws = s;
       this.ws.addEventListener("error", (m) => {
