@@ -222,7 +222,7 @@ jobs:
         working-directory: ./libraries/client
 
       - run: npm ci
-      - run: env BASE_URL="/" VITE_API_HOST="/" npm run build
+      - run: env BASE_URL="/" npm run build
       - uses: codecov/codecov-action@v1
         with:
           env_vars: NODE_VERSION
