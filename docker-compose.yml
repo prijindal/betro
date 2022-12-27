@@ -28,7 +28,7 @@ services:
       - postgres
     environment:
       - POSTGRES_URI=postgres://betro:betro@postgres:5432/betro
-    command: [ "./linux-x64/migrate/migrate" ]
+    command: [ "node", "/app/migrate.js" ]
   betro-api:
     image: ghcr.io/prijindal/betro/api:main
     restart: always
