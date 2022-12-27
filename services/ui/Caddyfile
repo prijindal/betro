@@ -1,0 +1,21 @@
+{
+	email "priyanshujindal1995@gmail.com"
+}
+
+{$SITE_ADDRESS} {
+    handle /api/* {
+        reverse_proxy {$API_URI}
+    }
+    handle /messages {
+        reverse_proxy {$API_URI}
+    }
+    @ui {
+        not path /api/*
+    }
+    handle @ui {
+        root * /data/caddy
+        encode zstd gzip
+        file_server
+        try_files {path} /index.html
+    }
+}
