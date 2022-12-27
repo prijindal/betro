@@ -33,8 +33,8 @@ services:
     image: ghcr.io/prijindal/betro/api:main
     restart: always
     container_name: betro-api
-    ports:
-      - 4000:4000
+    # ports:
+    #   - 4000:4000
     depends_on:
       - betro-migration
       - postgres
@@ -55,3 +55,11 @@ services:
     restart: always
     depends_on:
       - betro-api
+  caddy:
+    build: caddy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
