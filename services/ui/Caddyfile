@@ -13,7 +13,7 @@
         not path /api/*
     }
     handle @ui {
-        root * /data/caddy
+        root * /data/ui
         encode zstd gzip
         file_server
         try_files {path} /index.html
