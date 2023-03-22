@@ -34,7 +34,7 @@ dependencies:
   badges: any
   collection: any
   cryptography: any
-  dio: any
+  dio: ^5.0.3
   dio_cache_interceptor: any
   dio_cache_interceptor_hive_store: any
   dio_http2_adapter: any
