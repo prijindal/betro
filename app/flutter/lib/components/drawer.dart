@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -35,14 +35,15 @@ class AppDrawerBadgeListTile extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Badge(
+            badges.Badge(
               showBadge: showBadge,
-              alignment: Alignment.topLeft,
-              position: BadgePosition.topEnd(),
-              shape: BadgeShape.circle,
-              borderRadius: BorderRadius.circular(100),
-              badgeColor: Theme.of(context).primaryColor,
-              badgeContent: SizedBox(
+              position: badges.BadgePosition.topEnd(),
+              badgeStyle: badges.BadgeStyle(
+                shape: badges.BadgeShape.circle,
+                badgeColor: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(100),
+              ),
+              badgeContent: const SizedBox(
                 height: 5,
                 width: 5,
               ),

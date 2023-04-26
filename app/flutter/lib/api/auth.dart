@@ -63,7 +63,7 @@ class AuthController {
     }
     final httpClientAdapter = Http2Adapter(
       ConnectionManager(
-        idleTimeout: 100000,
+        idleTimeout: const Duration(seconds: 100000),
       ),
     );
     client.httpClientAdapter = httpClientAdapter;
