@@ -104,8 +104,8 @@ jobs:
           architecture: x64 # optional, x64 or arm64
       - run: flutter --version
       - run: flutter pub get
-      # - run: flutter test
-      # - run: flutter build ios --release --no-codesign
+      - run: flutter test
+      - run: flutter build ios --release --no-codesign
       # - uses: actions/upload-artifact@v3
       #   with:
       #     name: ios
