@@ -41,6 +41,9 @@ class AuthController {
   };
 
   getHost = (): string => {
+    if(this.host.length === 0 || this.host === "/") {
+      return window.location.origin;
+    }
     return this.host;
   };
 
