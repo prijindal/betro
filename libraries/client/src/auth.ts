@@ -6,7 +6,7 @@ import {
   getMasterHash,
   getMasterKey,
   symEncrypt,
-} from "@prijindal/betro-js-lib/src";
+} from "@repo/encryption/src";
 
 class AuthController {
   private host: string;
@@ -41,7 +41,7 @@ class AuthController {
   };
 
   getHost = (): string => {
-    if(this.host.length === 0 || this.host === "/") {
+    if (this.host.length === 0 || this.host === "/") {
       return window.location.origin;
     }
     return this.host;
@@ -62,9 +62,8 @@ class AuthController {
     if (encryptionKey != null && token != null) {
       this.encryptionKey = encryptionKey;
       this.token = token;
-      this.instance.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${token}`;
+      this.instance.defaults.headers.common["Authorization"] =
+        `Bearer ${token}`;
       return true;
     } else {
       return false;
@@ -98,9 +97,8 @@ class AuthController {
     const token = response.data.token;
     if (token != null) {
       this.token = token;
-      this.instance.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${token}`;
+      this.instance.defaults.headers.common["Authorization"] =
+        `Bearer ${token}`;
     }
     return true;
   };
@@ -151,9 +149,8 @@ class AuthController {
     this.encryptionKey = encryptionKey;
     if (token != null) {
       this.token = token;
-      this.instance.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${token}`;
+      this.instance.defaults.headers.common["Authorization"] =
+        `Bearer ${token}`;
     }
     return true;
   };

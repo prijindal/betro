@@ -6,6 +6,13 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
+    "example:generate": {
+      "dependsOn": ["^example:generate"]
+    },
+    "test": {
+      "dependsOn": ["build", "example:generate", "^test"],
+      "cache": false
+    },
     "lint": {
       "dependsOn": ["^lint"]
     },

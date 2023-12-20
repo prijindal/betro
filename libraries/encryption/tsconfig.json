@@ -16,18 +16,21 @@
     "baseUrl": ".",
     "newLine": "lf",
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "paths": {
       "*": [
         "node_modules/*",
-        "src/*"
+        "src/*",
+        "test/*",
+        "jest.config.js"
       ]
     }
   },
   "include": [
     "src",
-    "node_modules/@types/jest"
+    "test"
   ],
   "exclude": [
     "dist"

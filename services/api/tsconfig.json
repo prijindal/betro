@@ -6,7 +6,6 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "rootDir": "src",
     "allowSyntheticDefaultImports": true,
     "target": "ESNext",
     "skipLibCheck": true,
@@ -15,11 +14,15 @@
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
-    "types": []
+    "types": [
+      "node",
+      "jest"
+    ]
   },
   "include": [
     "src",
-    "node_modules/@types/jest"
+    "test",
+    "jest.config.js"
   ],
   "exclude": [
     "test/models",
