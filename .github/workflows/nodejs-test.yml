@@ -71,6 +71,18 @@ jobs:
           env_vars: NODE_VERSION
         env:
           NODE_VERSION: ${{ matrix.node-version }}
+  docker:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+  
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+      - run: npm ci
+      - run: env VITE_API_HOST="/" npm run build
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -84,6 +96,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
+          context: .
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
