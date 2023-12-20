@@ -24,7 +24,7 @@ import { NotificationRouter } from "./routes/notificationRoutes";
 import { SettingsRouter } from "./routes/settingsRoutes";
 import { MessageRouter } from "./routes/messageRoutes";
 import { MessageWebSocketRouter } from "./routes/websocketRoutes";
-import { ENVIRONMENT, logger, PORT } from "./config";
+import { ENVIRONMENT, logger, PORT, UI_BUILD_PATH } from "./config";
 import { connection } from "./connection";
 
 @Service()
@@ -59,6 +59,7 @@ class Server {
       this.app.use(helmet());
     }
     this.app.use(cors());
+    this.app.use(express.static(UI_BUILD_PATH));
     this.app.use(cookieParser());
     this.app.use(compression());
     this.app.use(express.json({ limit: "50mb" }));
