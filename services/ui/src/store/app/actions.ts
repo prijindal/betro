@@ -1,5 +1,5 @@
 import { CountResponse, MessageResponse } from "@repo/client/src";
-import { ConversationResponseBackend } from "@repo/client/dist/UserResponses";
+import { ConversationResponseBackend } from "@repo/client/src/UserResponses";
 import { Action, Group, Locale, MessagesState } from "./types";
 
 export const ActionTypes = {

@@ -9,7 +9,7 @@ import { useFetchMessages, useSendMessage } from "../../hooks";
 import { LoadingSpinnerCenter } from "../../ui/LoadingSpinner";
 import { getConversation, getProfile } from "../../store/app/selectors";
 import Button from "../../ui/Button";
-import { ConversationResponseBackend } from "@repo/client/dist/UserResponses";
+import { ConversationResponseBackend } from "@repo/client/src/UserResponses";
 import { showConversation, hideConversation } from "../../store/app/actions";
 import TextField from "../../ui/TextField";
 import Divider from "../../ui/Divider";

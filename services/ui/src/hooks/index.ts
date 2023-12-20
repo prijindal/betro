@@ -38,7 +38,7 @@ import { bufferToImageUrl } from "@repo/client/src";
 import { UserListItemUserProps } from "../components/UserListItem/types";
 import { createPaginatedHook } from "./paginated";
 import BetroApiObject from "../api/context";
-import { ConversationResponseBackend } from "@repo/client/dist/UserResponses";
+import { ConversationResponseBackend } from "@repo/client/src/UserResponses";
 
 export function useFetchGroupsHook() {
   const groupData = useSelector(getGroup);

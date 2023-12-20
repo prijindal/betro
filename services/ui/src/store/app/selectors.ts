@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { ConversationResponseBackend } from "@repo/client/dist/UserResponses";
+import { ConversationResponseBackend } from "@repo/client/src/UserResponses";
 import { createSelector } from "reselect";
 import { RootState } from "../types";
 import {

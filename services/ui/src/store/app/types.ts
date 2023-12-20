@@ -1,5 +1,5 @@
 import { MessageResponse, PaginatedResponse } from "@repo/client/src";
-import { ConversationResponseBackend } from "@repo/client/dist/UserResponses";
+import { ConversationResponseBackend } from "@repo/client/src/UserResponses";
 
 export type Locale = "en_US" | "de_DE";
 
