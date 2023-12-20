@@ -51,40 +51,24 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
       - run: npm ci
-      - run: npm run build
-      - run: npm run test
-      - uses: codecov/codecov-action@v3
-        with:
-          env_vars: NODE_VERSION
-          flags: libraries-encryption
+      - run: env VITE_API_HOST="/" npm run build
+      - run: sh ./test/setup.sh
+        working-directory: ./libraries/client
         env:
-          NODE_VERSION: ${{ matrix.node-version }}
-
-
-  encryption:
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        shell: bash
-        working-directory: ./libraries/encryption
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-      - run: npm ci
-      - run: npm run example:generate
+          POSTGRES_URI: postgres://postgres:postgres@localhost:5432/postgres
+          REDIS_URI: redis://localhost:6379
+      - run: sh ./test/startServer.sh
+        working-directory: ./libraries/client
+        env:
+          POSTGRES_URI: postgres://postgres:postgres@localhost:5432/postgres
+          REDIS_URI: redis://localhost:6379
       - run: npm run test
-      - run: npm run build
+        env:
+          POSTGRES_URI: postgres://postgres:postgres@localhost:5432/postgres
+          REDIS_URI: redis://localhost:6379
       - uses: codecov/codecov-action@v3
         with:
           env_vars: NODE_VERSION
-          flags: libraries-encryption
         env:
           NODE_VERSION: ${{ matrix.node-version }}
 
