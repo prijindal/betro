@@ -56,7 +56,11 @@ class Server {
     this.app.set("trust proxy", 1);
     this.app.set("port", PORT);
     if (ENVIRONMENT !== "development") {
-      this.app.use(helmet());
+      this.app.use(
+        helmet({
+          contentSecurityPolicy: false,
+        })
+      );
     }
     this.app.use(cors());
     this.app.use(express.static(UI_BUILD_PATH));
