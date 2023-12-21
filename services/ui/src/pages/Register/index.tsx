@@ -104,6 +104,7 @@ const App: React.FC<any> = () => {
                 }
             })
             .catch((error) => {
+                console.error(error);
                 const errorMessage = error.response?.data?.data || "Registration error";
                 setLoading(false);
                 setError(errorMessage);
