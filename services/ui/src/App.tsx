@@ -15,6 +15,7 @@ import { wrapLayout } from "./components/Layout";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Deregister from "./pages/Deregister";
 import Register from "./pages/Register";
 import User from "./pages/User";
 import Post from "./pages/Post";
@@ -111,6 +112,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path={routes.loading} element={<Navigate to="/home" />} />
           <Route path={routes.login} element={<Login />} />
+          <Route path={routes.deregister} element={<Deregister />} />
           <Route path={routes.register} element={<Register />} />
           {APP_ROUTES.map(({ route, Component }) => (
             <Route

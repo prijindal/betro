@@ -39,7 +39,34 @@ export class LoginRouter {
     }
   };
 
+  deregister = async (
+    req: Request<{}, {}, LoginBody, { set_cookie: string }>,
+    res: Response
+  ) => {
+    const { response, error } =
+      await this.loginController.deregisterUserHandler({
+        ...req.body,
+      });
+    if (error != null) {
+      res.status(error.status).send(error);
+    } else {
+      const setCookie = req.query.set_cookie === "true";
+      if (setCookie == false) {
+        res.status(200).send(response);
+      } else {
+        res.clearCookie("token");
+        res.status(200).send({});
+      }
+    }
+  };
+
   public routes() {
     this.router.post("/", LoginValidation.login(), validateRequest, this.login);
+    this.router.post(
+      "/deregister",
+      LoginValidation.login(),
+      validateRequest,
+      this.deregister
+    );
   }
 }

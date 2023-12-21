@@ -89,4 +89,36 @@ export class LoginController {
     // Create access token and send
     return { token, device_id };
   };
+
+  public deregisterUserHandler: AppHandlerFunction<
+    {
+      email: string;
+      master_hash: string;
+    },
+    {
+      id: string;
+    }
+  > = async ({ email, master_hash }) => {
+    const queryResult = await this.userRepository.findOne({
+      where: { email },
+      select: ["id", "master_hash", "sym_key_id"],
+    });
+    if (
+      queryResult == null ||
+      !verifyServerHash(master_hash, queryResult.master_hash)
+    ) {
+      return {
+        error: { status: 403, message: "Invalid Credentials", data: null },
+        response: null,
+      };
+    } else {
+      await this.userRepository.delete({ id: queryResult.id });
+      return {
+        error: null,
+        response: {
+          id: queryResult.id,
+        },
+      };
+    }
+  };
 }

@@ -62,8 +62,9 @@ class AuthController {
     if (encryptionKey != null && token != null) {
       this.encryptionKey = encryptionKey;
       this.token = token;
-      this.instance.defaults.headers.common["Authorization"] =
-        `Bearer ${token}`;
+      this.instance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${token}`;
       return true;
     } else {
       return false;
@@ -97,9 +98,29 @@ class AuthController {
     const token = response.data.token;
     if (token != null) {
       this.token = token;
-      this.instance.defaults.headers.common["Authorization"] =
-        `Bearer ${token}`;
+      this.instance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${token}`;
     }
+    return true;
+  };
+
+  deregister = async (
+    email: string,
+    password: string,
+    set_cookie: boolean = false
+  ): Promise<boolean> => {
+    const masterKey = await getMasterKey(email, password);
+    const masterHash = await getMasterHash(masterKey, password);
+    const response = await this.instance.post(
+      `/api/login/deregister?set_cookie=${set_cookie}`,
+      {
+        email,
+        master_hash: masterHash,
+      }
+    );
+    this.encryptionKey = await getEncryptionKey(masterKey);
+    this.instance.defaults.headers.common["Authorization"] = undefined;
     return true;
   };
 
@@ -149,8 +170,9 @@ class AuthController {
     this.encryptionKey = encryptionKey;
     if (token != null) {
       this.token = token;
-      this.instance.defaults.headers.common["Authorization"] =
-        `Bearer ${token}`;
+      this.instance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${token}`;
     }
     return true;
   };
