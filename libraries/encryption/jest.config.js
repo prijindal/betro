@@ -1,4 +1,4 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} */
+/** @type {import('jest').Config} */
 const commonConfig = {
   moduleFileExtensions: ["ts", "js"],
   transform: {
@@ -9,6 +9,10 @@ const commonConfig = {
 };
 
 module.exports = {
+  coverageDirectory: ".nyc_output",
+  coverageReporters: [
+    "json"
+  ],
   projects: [
     {
       ...commonConfig,
