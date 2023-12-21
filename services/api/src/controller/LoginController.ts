@@ -7,7 +7,22 @@ import jsonwebtoken from "jsonwebtoken";
 import { LoginBody } from "../service/LoginService";
 import { SECRET } from "../config";
 import { AppHandlerFunction } from "./expressHelper";
-import { AccessToken, User } from "../entities";
+import {
+  AccessToken,
+  Post,
+  User,
+  UserSymKey,
+  UserEcdhKey,
+  UserProfile,
+  PostLike,
+  ProfileGrant,
+  GroupPolicy,
+  GroupFollowApproval,
+  UserNotification,
+  UserSettings,
+  Conversation,
+  Message,
+} from "../entities";
 import { generateServerHash, verifyServerHash } from "../util/crypto";
 
 @Service()
@@ -15,7 +30,31 @@ export class LoginController {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(AccessToken)
-    private readonly accessTokenRepository: Repository<AccessToken>
+    private readonly accessTokenRepository: Repository<AccessToken>,
+    @InjectRepository(Post)
+    private readonly postRepostory: Repository<Post>,
+    @InjectRepository(UserSymKey)
+    private readonly userSymKeyRepository: Repository<UserSymKey>,
+    @InjectRepository(UserEcdhKey)
+    private readonly userEcdhKeyRepository: Repository<UserEcdhKey>,
+    @InjectRepository(UserProfile)
+    private readonly userProfileRepository: Repository<UserProfile>,
+    @InjectRepository(PostLike)
+    private readonly postLikeRepository: Repository<PostLike>,
+    @InjectRepository(ProfileGrant)
+    private readonly profileGrantRepository: Repository<ProfileGrant>,
+    @InjectRepository(GroupPolicy)
+    private readonly groupPolicyRepository: Repository<GroupPolicy>,
+    @InjectRepository(GroupFollowApproval)
+    private readonly groupFollowApprovalRepository: Repository<GroupFollowApproval>,
+    @InjectRepository(UserNotification)
+    private readonly userNotificationRepository: Repository<UserNotification>,
+    @InjectRepository(UserSettings)
+    private readonly userSettingsRepository: Repository<UserSettings>,
+    @InjectRepository(Conversation)
+    private readonly conversationRepository: Repository<Conversation>,
+    @InjectRepository(Message)
+    private readonly messageRepository: Repository<Message>
   ) {}
 
   public loginUserHandler: AppHandlerFunction<
@@ -112,7 +151,20 @@ export class LoginController {
         response: null,
       };
     } else {
-      await this.userRepository.delete({ id: queryResult.id });
+      await Promise.all([
+        this.userRepository.delete({ id: queryResult.id }),
+        this.accessTokenRepository.delete({ user_id: queryResult.id }),
+        this.postRepostory.delete({ user_id: queryResult.id }),
+        this.userSymKeyRepository.delete({ id: queryResult.sym_key_id }),
+        this.userEcdhKeyRepository.delete({ user_id: queryResult.id }),
+        this.userProfileRepository.delete({ user_id: queryResult.id }),
+        this.postLikeRepository.delete({ user_id: queryResult.id }),
+        this.profileGrantRepository.delete({ user_id: queryResult.id }),
+        this.groupPolicyRepository.delete({ user_id: queryResult.id }),
+        this.groupFollowApprovalRepository.delete({ user_id: queryResult.id }),
+        this.userNotificationRepository.delete({ user_id: queryResult.id }),
+        this.userSettingsRepository.delete({ user_id: queryResult.id }),
+      ]);
       return {
         error: null,
         response: {
