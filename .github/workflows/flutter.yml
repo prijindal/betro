@@ -39,7 +39,7 @@ jobs:
           echo "storePassword=$KEY_PASSWORD" >> android/key.properties
           echo "VERSION_CODE=$GITHUB_RUN_NUMBER" > android/version.properties
 
-      # - run: flutter build apk --release
+      - run: flutter build apk --release
       - run: flutter build appbundle --release
       - uses: actions/upload-artifact@v3
         with:

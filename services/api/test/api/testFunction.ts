@@ -1,4 +1,4 @@
-import { UserSettingsType } from "@prijindal/betro-js-client";
+import { UserSettingsType } from "@repo/client/src";
 import { GeneratedUser, generateUsers } from "./generateUsers";
 
 export const runTests = (port: string): void => {

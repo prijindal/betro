@@ -1,5 +1,5 @@
 {
-  "name": "@prijindal/betro-js-lib",
+  "name": "@repo/encryption",
   "version": "1.0.0",
   "description": "",
   "private": false,
@@ -9,8 +9,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "npm run build-ts && npm run lint",
-    "build-ts": "tsc",
+    "build": "tsc",
     "lint": "eslint \"**/*.{js,ts}\" --quiet --fix",
     "prettier": "prettier src test --write",
     "test": "jest --coverage",
@@ -29,19 +28,17 @@
   },
   "homepage": "https://github.com/prijindal/betro-js-lib#readme",
   "devDependencies": {
-    "@types/jest": "^29.5.1",
-    "@types/node": "^18.16.1",
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.5",
     "@typescript-eslint/eslint-plugin": "^5.59.1",
     "@typescript-eslint/parser": "^5.59.1",
     "eslint": "^8.39.0",
     "eslint-config-prettier": "^8.8.0",
-    "husky": "^8.0.3",
     "jest": "^29.5.0",
-    "jest-puppeteer": "^8.0.6",
-    "nodemon": "^2.0.22",
-    "pre-commit": "^1.2.2",
+    "jest-puppeteer": "^9.0.2",
+    "nodemon": "^3.0.2",
     "prettier": "^2.8.8",
-    "puppeteer": "^19.11.1",
+    "puppeteer": "^21.6.1",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"

@@ -14,20 +14,15 @@
     "outDir": "dist",
     "strict": true,
     "newLine": "lf",
-    "baseUrl": ".",
     "types": [
-      "node"
-    ],
-    "paths": {
-      "*": [
-        "node_modules/*",
-        "src/*"
-      ]
-    }
+      "node",
+      "jest"
+    ]
   },
   "include": [
     "src",
-    "node_modules/@types/jest"
+    "test",
+    "jest.config.js"
   ],
   "exclude": [
     "dist"

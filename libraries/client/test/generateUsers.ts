@@ -1,5 +1,6 @@
 import { includes } from "lodash";
 import casual from "casual";
+import "@repo/encryption/src/setupNodePollyfill";
 import BetroApi, { GroupResponse } from "../src";
 
 export interface GeneratedUser {

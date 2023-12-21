@@ -1,5 +1,5 @@
 import { Buffer } from "buffer";
-import { symEncrypt, generateSymKey } from "@prijindal/betro-js-lib/src";
+import { symEncrypt, generateSymKey } from "@repo/encryption/src";
 
 import AuthController from "./auth";
 import { GroupResponse } from "./types";
