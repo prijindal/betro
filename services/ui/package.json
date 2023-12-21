@@ -14,8 +14,6 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
-    "@mantine/core": "^7.3.2",
-    "@mantine/hooks": "^7.3.2",
     "@repo/client": "*",
     "@repo/encryption": "*",
     "@tailwindcss/forms": "^0.5.7",
@@ -37,6 +35,7 @@
     "reselect": "^5.0.1",
     "sanitize-html": "^2.11.0",
     "sass": "^1.69.5",
+    "tailwindcss": "^3.3.2",
     "web-vitals": "^3.5.0"
   },
   "devDependencies": {
@@ -61,7 +60,6 @@
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-order": "^6.0.3",
     "stylelint-prettier": "^3.0.0",
-    "tailwindcss": "^3.3.2",
     "typescript": "^5.0.4",
     "vite": "^4.3.3"
   }
