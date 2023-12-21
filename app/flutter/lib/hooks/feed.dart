@@ -10,8 +10,7 @@ HomeFeedCallback Function(T data) _feedHookCreator<T>(
   Future<FeedResource?> Function(
     T data, [
     String? after,
-  ])
-      fetch,
+  ]) fetch,
 ) {
   HomeFeedCallback useFetchFeed(T data) {
     final loaded = useState<bool>(false);
