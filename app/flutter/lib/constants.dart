@@ -1,1 +1,1 @@
-const DEFAULT_HOST = 'https://betro.autouptime.online';
+const DEFAULT_HOST = 'https://betro.prijindal.click';
